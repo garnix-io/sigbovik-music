@@ -30,7 +30,7 @@
         sox ${first} ${second} $out
       '';
 
-  sequence = lib.fold binarySeq (sine 14000 0.1 60.0);
+  sequence = lib.fold binarySeq (sine 14000 0.1 0.0);
 
   binaryOverlay = first: second:
     pkgs.runCommand "overlay.wav"
@@ -41,5 +41,5 @@
         ffmpeg -i ${first} -i ${second} -filter_complex amix=inputs=2:duration=longest $out
       '';
 
-  overlay = lib.fold binaryOverlay (sine 14000 0.1 60.0);
+  overlay = lib.fold binaryOverlay (sine 14000 0.1 0.0);
 }
