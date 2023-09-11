@@ -15,7 +15,7 @@
         in
         with import ./sine.nix { inherit pkgs; lib = nixpkgs.lib; };
         {
-          packages = {
+          packages = rec {
             default = sequence [
               (sine g3 1.0)
               (sine a3 1.0)
@@ -53,6 +53,17 @@
               (sine d4 2.0)
               (sine c4 2.0)
             ];
+
+            garnix-music =
+              pkgs.runCommand "garnix-music"
+                {
+                  meta.mainProgram = "song";
+                  nativeBuildInputs = [ pkgs.sox ];
+                } ''
+                mkdir -p $out/bin
+                echo ${pkgs.sox}/bin/play ${default} >$out/bin/song
+                chmod +x $out/bin/song
+              '';
           };
 
           formatter = pkgs.nixpkgs-fmt;
