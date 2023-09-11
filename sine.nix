@@ -1,17 +1,32 @@
 { pkgs, lib, ... }: rec {
-  frequencies = rec {
-    g2 = g3 / 2;
-    a2 = a3 / 2;
-    b2 = b3 / 2;
-    c3 = c4 / 2;
-    d3 = d4 / 2;
-    a3 = 220;
-    b3 = 247;
-    g3 = 196;
-    c4 = 262;
-    d4 = 294;
-    e4 = 330;
+  frequencies = {
+    g2 = fromMidi 43;
+    a2 = fromMidi 45;
+    b2 = fromMidi 47;
+    c3 = fromMidi 48;
+    d3 = fromMidi 50;
+    g3 = fromMidi 55;
+    a3 = fromMidi 57;
+    b3 = fromMidi 59;
+    c4 = fromMidi 60;
+    d4 = fromMidi 62;
+    e4 = fromMidi 64;
   };
+
+  fromMidi = midi: 440 * (power (power 2.0 (1.0 / 12.0)) (midi - 69.0));
+
+  power = a: b:
+    let
+      result = pkgs.runCommand
+        "power of ${builtins.toString a} and ${builtins.toString b}"
+        {
+          nativeBuildInputs = [ pkgs.python3 ];
+        }
+        ''
+          python3 -c "print(pow(${builtins.toString a}, ${builtins.toString b}))" > $out
+        '';
+    in
+    import result;
 
   sine =
     frequency: duration: vol:
