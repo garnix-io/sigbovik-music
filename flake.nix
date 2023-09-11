@@ -84,15 +84,15 @@
               (sine g2 2.0)
               (sine c3 2.0)
             ];
-            default = overlay [ melody bass ];
-            garnix-music =
+            song = overlay [ melody bass ];
+            default =
               pkgs.runCommand "garnix-music"
                 {
                   meta.mainProgram = "song";
                   nativeBuildInputs = [ pkgs.sox ];
                 } ''
                 mkdir -p $out/bin
-                echo ${pkgs.sox}/bin/play ${default} >$out/bin/song
+                echo ${pkgs.sox}/bin/play ${song} >$out/bin/song
                 chmod +x $out/bin/song
               '';
           };
