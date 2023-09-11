@@ -5,12 +5,15 @@
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          sine = import ./sine.nix { inherit pkgs; };
+
         in
+        with import ./sine.nix { inherit pkgs; };
         {
           packages = {
-            default = sine 440 1;
+            default = sequence (sine 440 1) (sine 256 1);
           };
+
+          formatter = pkgs.nixpkgs-fmt;
         }
       );
 }
