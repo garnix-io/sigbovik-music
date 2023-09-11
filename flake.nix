@@ -5,12 +5,54 @@
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-
+          a3 = 220;
+          b3 = 247;
+          g3 = 196;
+          c4 = 262;
+          d4 = 294;
+          e4 = 330;
+          rest = 14000;
         in
-        with import ./sine.nix { inherit pkgs; };
+        with import ./sine.nix { inherit pkgs; lib = nixpkgs.lib; };
         {
           packages = {
-            default = sequence (sine 440 1) (sine 256 1);
+            default = sequence [
+              (sine g3 1.0)
+              (sine a3 1.0)
+              (sine c4 1.0)
+              (sine a3 1.0)
+              (sine e4 2.0)
+              (sine rest 1.0)
+              (sine e4 2.0)
+              (sine rest 1.0)
+              (sine d4 2.0)
+              (sine rest 4.0)
+
+              (sine g3 1.0)
+              (sine a3 1.0)
+              (sine c4 1.0)
+              (sine a3 1.0)
+              (sine d4 2.0)
+              (sine rest 1.0)
+              (sine d4 2.0)
+              (sine rest 1.0)
+              (sine c4 2.0)
+              (sine rest 4.0)
+
+              (sine g3 1.0)
+              (sine a3 1.0)
+              (sine c4 1.0)
+              (sine a3 1.0)
+              (sine c4 2.0)
+              (sine rest 1.0)
+              (sine d4 2.0)
+              (sine rest 1.0)
+              (sine b3 2.0)
+              (sine rest 7.0)
+              (sine g3 1.0)
+              (sine d4 2.0)
+              (sine c4 2.0)
+            ];
           };
 
           formatter = pkgs.nixpkgs-fmt;
