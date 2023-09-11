@@ -5,19 +5,10 @@
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          g2 = g3 / 2;
-          a2 = a3 / 2;
-          c3 = c4 / 2;
-          d3 = d4 / 2;
-          a3 = 220;
-          b3 = 247;
-          g3 = 196;
-          c4 = 262;
-          d4 = 294;
-          e4 = 330;
           rest = 14000;
         in
-        with import ./sine.nix { inherit pkgs; lib = nixpkgs.lib; };
+          with import ./sine.nix { inherit pkgs; lib = nixpkgs.lib; };
+          with frequencies;
         {
           packages = rec {
             melody = sequence [

@@ -1,4 +1,18 @@
 { pkgs, lib, ... }: rec {
+  frequencies = rec {
+    g2 = g3 / 2;
+    a2 = a3 / 2;
+    b2 = b3 / 2;
+    c3 = c4 / 2;
+    d3 = d4 / 2;
+    a3 = 220;
+    b3 = 247;
+    g3 = 196;
+    c4 = 262;
+    d4 = 294;
+    e4 = 330;
+  };
+
   sine =
     frequency: duration:
     let seconds = duration / 6; in
