@@ -1,6 +1,7 @@
 { pkgs, lib, ... }: rec {
   sine =
-    frequency: duration: let seconds = duration / 4; in
+    frequency: duration:
+    let seconds = duration / 6; in
     pkgs.runCommand
       "sine-${builtins.toString frequency}-${builtins.toString seconds}.wav"
       {

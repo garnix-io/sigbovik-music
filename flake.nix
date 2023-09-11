@@ -5,6 +5,10 @@
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+          g2 = g3 / 2;
+          a2 = a3 / 2;
+          c3 = c4 / 2;
+          d3 = d4 / 2;
           a3 = 220;
           b3 = 247;
           g3 = 196;
@@ -16,7 +20,7 @@
         with import ./sine.nix { inherit pkgs; lib = nixpkgs.lib; };
         {
           packages = rec {
-            default = sequence [
+            melody = sequence [
               (sine g3 1.0)
               (sine a3 1.0)
               (sine c4 1.0)
@@ -53,7 +57,34 @@
               (sine d4 2.0)
               (sine c4 2.0)
             ];
-
+            bass = sequence [
+              (sine rest 4.0)
+              (sine c3 2.0)
+              (sine rest 1.0)
+              (sine c3 2.0)
+              (sine rest 1.0)
+              (sine d3 2.0)
+              (sine rest 4.0)
+              (sine g2 4.0)
+              (sine g2 2.0)
+              (sine rest 1.0)
+              (sine g2 2.0)
+              (sine rest 1.0)
+              (sine a2 2.0)
+              (sine rest 4.0)
+              (sine a2 3.0)
+              (sine rest 1.0)
+              (sine a2 2.0)
+              (sine rest 1.0)
+              (sine a2 2.0)
+              (sine rest 1.0)
+              (sine g2 2.0)
+              (sine rest 7.0)
+              (sine g2 1.0)
+              (sine g2 2.0)
+              (sine c3 2.0)
+            ];
+            default = overlay [ melody bass ];
             garnix-music =
               pkgs.runCommand "garnix-music"
                 {
