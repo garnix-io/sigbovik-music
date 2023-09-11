@@ -48,32 +48,39 @@
               (sine d4 2.0 50.0)
               (sine c4 2.0 50.0)
             ];
+            chord = notes: duration: volume:
+              overlay (pkgs.lib.lists.map
+                (midi: sine (fromMidi midi) duration volume)
+                notes);
+            cMajor = chord [ 48 64 67 ];
+            gMajor = chord [ 43 59 52 ];
+            aMinor = chord [ 45 60 64 ];
             bass = sequence [
               (square rest 4.0 0.0)
-              (square c3 2.0 100.0)
+              (cMajor 2.0 100.0)
               (square rest 1.0 0.0)
-              (square c3 2.0 100.0)
+              (cMajor 2.0 100.0)
               (square rest 1.0 0.0)
-              (square d3 2.0 100.0)
+              (gMajor 2.0 100.0)
               (square rest 4.0 0.0)
-              (square g2 4.0 100.0)
-              (square g2 2.0 100.0)
+              (gMajor 4.0 100.0)
+              (gMajor 2.0 100.0)
               (square rest 1.0 0.0)
-              (square g2 2.0 100.0)
+              (gMajor 2.0 100.0)
               (square rest 1.0 0.0)
-              (square a2 2.0 100.0)
+              (aMinor 2.0 100.0)
               (square rest 4.0 0.0)
-              (square a2 3.0 100.0)
+              (aMinor 3.0 100.0)
               (square rest 1.0 0.0)
-              (square a2 2.0 100.0)
+              (aMinor 2.0 100.0)
               (square rest 1.0 0.0)
-              (square a2 2.0 100.0)
+              (aMinor 2.0 100.0)
               (square rest 1.0 0.0)
-              (square g2 2.0 100.0)
+              (gMajor 2.0 100.0)
               (square rest 7.0 0.0)
-              (square g2 1.0 100.0)
-              (square g2 2.0 100.0)
-              (square c3 2.0 100.0)
+              (gMajor 1.0 100.0)
+              (gMajor 2.0 100.0)
+              (cMajor 2.0 100.0)
             ];
             song = overlay [ melody bass ];
             default =
