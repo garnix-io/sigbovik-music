@@ -37,7 +37,7 @@
         nativeBuildInputs = [ pkgs.sox pkgs.calc ];
       }
       ''
-        sox -V -r 48000 -n -b 16 -c 2 $out synth ${builtins.toString seconds} sin ${builtins.toString frequency} vol $(calc 'floor(log(${builtins.toString vol}+1)*12-25)')dB
+        sox -V -r 48000 -n -b 16 -c 2 $out synth ${builtins.toString seconds} sin ${builtins.toString frequency} vol ${builtins.toString (vol / 100)}
       '';
 
   square = f: d: vol: overlay [
