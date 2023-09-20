@@ -9,6 +9,7 @@
         in
           with import ./sine.nix { inherit pkgs; lib = nixpkgs.lib; };
           with frequencies;
+          with chords;
         {
           packages = rec {
             melody = sequence [
@@ -48,9 +49,6 @@
               (sine d4 2.0 50.0)
               (sine c4 2.0 50.0)
             ];
-            cMajor = chord [ c3 e4 g4 ];
-            gMajor = chord [ g2 b3 d3 ];
-            aMinor = chord [ a2 c4 e4 ];
             bass = sequence [
               (square rest 4.0 0.0)
               (cMajor 2.0 100.0)

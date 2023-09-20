@@ -13,6 +13,11 @@
     e4 = fromMidi 64;
     g4 = fromMidi 67;
   };
+  chords = with frequencies; {
+    cMajor = chord [ c3 e4 g4 ];
+    gMajor = chord [ g2 b3 d3 ];
+    aMinor = chord [ a2 c4 e4 ];
+  };
 
   fromMidi = midi: 440 * (power (power 2.0 (1.0 / 12.0)) (midi - 69.0));
 
