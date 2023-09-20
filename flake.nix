@@ -9,6 +9,7 @@
         in
           with import ./sine.nix { inherit pkgs; lib = nixpkgs.lib; };
           with frequencies;
+          with chords;
         {
           packages = rec {
             melody = sequence [
@@ -50,30 +51,30 @@
             ];
             bass = sequence [
               (square rest 4.0 0.0)
-              (square c3 2.0 100.0)
+              (cMajor 2.0 100.0)
               (square rest 1.0 0.0)
-              (square c3 2.0 100.0)
+              (cMajor 2.0 100.0)
               (square rest 1.0 0.0)
-              (square d3 2.0 100.0)
+              (gMajor 2.0 100.0)
               (square rest 4.0 0.0)
-              (square g2 4.0 100.0)
-              (square g2 2.0 100.0)
+              (gMajor 4.0 100.0)
+              (gMajor 2.0 100.0)
               (square rest 1.0 0.0)
-              (square g2 2.0 100.0)
+              (gMajor 2.0 100.0)
               (square rest 1.0 0.0)
-              (square a2 2.0 100.0)
+              (aMinor 2.0 100.0)
               (square rest 4.0 0.0)
-              (square a2 3.0 100.0)
+              (aMinor 3.0 100.0)
               (square rest 1.0 0.0)
-              (square a2 2.0 100.0)
+              (aMinor 2.0 100.0)
               (square rest 1.0 0.0)
-              (square a2 2.0 100.0)
+              (aMinor 2.0 100.0)
               (square rest 1.0 0.0)
-              (square g2 2.0 100.0)
+              (gMajor 2.0 100.0)
               (square rest 7.0 0.0)
-              (square g2 1.0 100.0)
-              (square g2 2.0 100.0)
-              (square c3 2.0 100.0)
+              (gMajor 1.0 100.0)
+              (gMajor 2.0 100.0)
+              (cMajor 2.0 100.0)
             ];
             song = overlay [ melody bass ];
             default =
