@@ -48,13 +48,9 @@
               (sine d4 2.0 50.0)
               (sine c4 2.0 50.0)
             ];
-            chord = notes: duration: volume:
-              overlay (pkgs.lib.lists.map
-                (midi: sine (fromMidi midi) duration volume)
-                notes);
-            cMajor = chord [ 48 64 67 ];
-            gMajor = chord [ 43 59 52 ];
-            aMinor = chord [ 45 60 64 ];
+            cMajor = chord [ c3 e4 g4 ];
+            gMajor = chord [ g2 b3 d3 ];
+            aMinor = chord [ a2 c4 e4 ];
             bass = sequence [
               (square rest 4.0 0.0)
               (cMajor 2.0 100.0)

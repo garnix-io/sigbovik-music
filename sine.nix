@@ -11,6 +11,7 @@
     c4 = fromMidi 60;
     d4 = fromMidi 62;
     e4 = fromMidi 64;
+    g4 = fromMidi 67;
   };
 
   fromMidi = midi: 440 * (power (power 2.0 (1.0 / 12.0)) (midi - 69.0));
@@ -49,6 +50,11 @@
     (sine (f*11.0) d (vol / 11.0))
     (sine (f*13.0) d (vol / 13.0))
   ];
+
+  chord = notes: duration: volume:
+    overlay (pkgs.lib.lists.map
+        (frequency: sine frequency duration volume)
+        notes);
 
   binarySeq = first: second:
     pkgs.runCommand "sequence.wav"
