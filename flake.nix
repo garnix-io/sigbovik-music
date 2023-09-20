@@ -5,84 +5,76 @@
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          g2 = g3 / 2;
-          a2 = a3 / 2;
-          c3 = c4 / 2;
-          d3 = d4 / 2;
-          a3 = 220;
-          b3 = 247;
-          g3 = 196;
-          c4 = 262;
-          d4 = 294;
-          e4 = 330;
           rest = 14000;
         in
-        with import ./sine.nix { inherit pkgs; lib = nixpkgs.lib; };
+          with import ./sine.nix { inherit pkgs; lib = nixpkgs.lib; };
+          with frequencies;
+          with chords;
         {
           packages = rec {
             melody = sequence [
-              (sine g3 1.0)
-              (sine a3 1.0)
-              (sine c4 1.0)
-              (sine a3 1.0)
-              (sine e4 2.0)
-              (sine rest 1.0)
-              (sine e4 2.0)
-              (sine rest 1.0)
-              (sine d4 2.0)
-              (sine rest 4.0)
+              (sine g3 1.0 50.0)
+              (sine a3 1.0 50.0)
+              (sine c4 1.0 50.0)
+              (sine a3 1.0 50.0)
+              (sine e4 2.0 50.0)
+              (sine rest 1.0 0.0)
+              (sine e4 2.0 50.0)
+              (sine rest 1.0 0.0)
+              (sine d4 2.0 50.0)
+              (sine rest 4.0 0.0)
 
-              (sine g3 1.0)
-              (sine a3 1.0)
-              (sine c4 1.0)
-              (sine a3 1.0)
-              (sine d4 2.0)
-              (sine rest 1.0)
-              (sine d4 2.0)
-              (sine rest 1.0)
-              (sine c4 2.0)
-              (sine rest 4.0)
+              (sine g3 1.0 50.0)
+              (sine a3 1.0 50.0)
+              (sine c4 1.0 50.0)
+              (sine a3 1.0 50.0)
+              (sine d4 2.0 50.0)
+              (sine rest 1.0 0.0)
+              (sine d4 2.0 50.0)
+              (sine rest 1.0 0.0)
+              (sine c4 2.0 50.0)
+              (sine rest 4.0 0.0)
 
-              (sine g3 1.0)
-              (sine a3 1.0)
-              (sine c4 1.0)
-              (sine a3 1.0)
-              (sine c4 2.0)
-              (sine rest 1.0)
-              (sine d4 2.0)
-              (sine rest 1.0)
-              (sine b3 2.0)
-              (sine rest 7.0)
-              (sine g3 1.0)
-              (sine d4 2.0)
-              (sine c4 2.0)
+              (sine g3 1.0 50.0)
+              (sine a3 1.0 50.0)
+              (sine c4 1.0 50.0)
+              (sine a3 1.0 50.0)
+              (sine c4 2.0 50.0)
+              (sine rest 1.0 0.0)
+              (sine d4 2.0 50.0)
+              (sine rest 1.0 0.0)
+              (sine b3 2.0 50.0)
+              (sine rest 7.0 0.0)
+              (sine g3 1.0 50.0)
+              (sine d4 2.0 50.0)
+              (sine c4 2.0 50.0)
             ];
             bass = sequence [
-              (sine rest 4.0)
-              (sine c3 2.0)
-              (sine rest 1.0)
-              (sine c3 2.0)
-              (sine rest 1.0)
-              (sine d3 2.0)
-              (sine rest 4.0)
-              (sine g2 4.0)
-              (sine g2 2.0)
-              (sine rest 1.0)
-              (sine g2 2.0)
-              (sine rest 1.0)
-              (sine a2 2.0)
-              (sine rest 4.0)
-              (sine a2 3.0)
-              (sine rest 1.0)
-              (sine a2 2.0)
-              (sine rest 1.0)
-              (sine a2 2.0)
-              (sine rest 1.0)
-              (sine g2 2.0)
-              (sine rest 7.0)
-              (sine g2 1.0)
-              (sine g2 2.0)
-              (sine c3 2.0)
+              (square rest 4.0 0.0)
+              (cMajor 2.0 100.0)
+              (square rest 1.0 0.0)
+              (cMajor 2.0 100.0)
+              (square rest 1.0 0.0)
+              (gMajor 2.0 100.0)
+              (square rest 4.0 0.0)
+              (gMajor 4.0 100.0)
+              (gMajor 2.0 100.0)
+              (square rest 1.0 0.0)
+              (gMajor 2.0 100.0)
+              (square rest 1.0 0.0)
+              (aMinor 2.0 100.0)
+              (square rest 4.0 0.0)
+              (aMinor 3.0 100.0)
+              (square rest 1.0 0.0)
+              (aMinor 2.0 100.0)
+              (square rest 1.0 0.0)
+              (aMinor 2.0 100.0)
+              (square rest 1.0 0.0)
+              (gMajor 2.0 100.0)
+              (square rest 7.0 0.0)
+              (gMajor 1.0 100.0)
+              (gMajor 2.0 100.0)
+              (cMajor 2.0 100.0)
             ];
             song = overlay [ melody bass ];
             default =
