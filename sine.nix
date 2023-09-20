@@ -46,6 +46,8 @@
         sox -V -r 48000 -n -b 16 -c 2 $out synth ${builtins.toString seconds} sin ${builtins.toString frequency} vol ${builtins.toString (vol / 100)}
       '';
 
+  getCount = sound: if sound ? count then sound.count else 1;
+
   square = f: d: vol: overlay [
     (sine f d vol)
     (sine (f*3.0) d (vol / 3.0))
@@ -62,24 +64,28 @@
         notes);
 
   binarySeq = first: second:
-    pkgs.runCommand "sequence.wav"
+    let sum = getCount first + getCount second;
+    in
+    (pkgs.runCommand "sequence-of-${builtins.toString sum}-notes.wav"
       {
         nativeBuildInputs = [ pkgs.sox ];
       }
       ''
         sox ${first} ${second} $out
-      '';
+      '') // { count = sum; };
 
   sequence = lib.fold binarySeq (sine 14000 0.1 0.0);
 
   binaryOverlay = first: second:
-    pkgs.runCommand "overlay.wav"
+    let sum = getCount first + getCount second;
+    in
+    (pkgs.runCommand "overlay-of-${builtins.toString sum}-notes.wav"
       {
         nativeBuildInputs = [ pkgs.ffmpeg ];
       }
       ''
         ffmpeg -i ${first} -i ${second} -filter_complex amix=inputs=2:duration=longest $out
-      '';
+      '') // { count = sum; };
 
   overlay = lib.fold binaryOverlay (sine 14000 0.1 0.0);
 }
