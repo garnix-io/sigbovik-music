@@ -7,9 +7,9 @@
           pkgs = nixpkgs.legacyPackages.${system};
           rest = 14000;
         in
-          with import ./sine.nix { inherit pkgs; lib = nixpkgs.lib; };
-          with frequencies;
-          with chords;
+        with import ./sine.nix { inherit pkgs; lib = nixpkgs.lib; };
+        with frequencies;
+        with chords;
         {
           packages = rec {
             melody = sequence [
@@ -81,15 +81,19 @@
               pkgs.runCommand "garnix-music"
                 {
                   meta.mainProgram = "song";
-                  nativeBuildInputs = [ pkgs.sox ];
+                  nativeBuildInputs = [ pkgs.sox pkgs.makeWrapper ];
+                  env = {
+                    inherit song;
+                  };
                 } ''
                 mkdir -p $out/bin
-                echo ${pkgs.sox}/bin/play ${song} >$out/bin/song
-                chmod +x $out/bin/song
+                makeWrapper ${pkgs.sox}/bin/play $out/bin/song \
+                  --add-flags $song
               '';
           };
 
           formatter = pkgs.nixpkgs-fmt;
+          checks.default = self.packages.${system}.default;
         }
       );
 }
