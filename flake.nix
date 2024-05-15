@@ -84,7 +84,8 @@
                   nativeBuildInputs = [ pkgs.sox ];
                 } ''
                 mkdir -p $out/bin
-                echo ${pkgs.sox}/bin/play ${song} >$out/bin/song
+                echo "#!${pkgs.bash}/bin/bash" >> $out/bin/song
+                echo ${pkgs.sox}/bin/play ${song} >> $out/bin/song
                 chmod +x $out/bin/song
               '';
           };
